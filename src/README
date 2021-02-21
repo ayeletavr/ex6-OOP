@@ -1,0 +1,71 @@
+golans
+ayeletavr
+
+
+=============================
+=      File description     =
+=============================
+oop.ex6.main package:
+Sjavac.java - the main program that runs Java Verifier.
+CodeException.java - Exception in sjava file. Parent class of SyntaxException and UsageException.
+SyntaxException.java - Represents syntax exceptions in sjava file. Extends CodeException.
+UsageException.java - Represents usage exceptions in sjava file. Extends CodeException.
+
+analyzer package:
+SectionAnalyzer.java - Anlyzes each section due the sjava rules.
+SectionClassifier.java - Classifies each section to types (method, variable declaretion, if or while, etc. )
+VariableIntialization.java - ****not sure if used***
+VariableObject.java - This class represents a Variable in sjava file.
+VariableRegEx.java - RegEx that suits for variable declareton and assignment.
+CommentLineRegEx.java - RegEx that suits for comment line.
+ifOrWhileRegEx.java - RegEx that suits for if and while statement.
+MethodCallRegEx.java - RegEx that suits for method calls (***not sure if used***)
+MethodSignatureRegEx.java - RegEx that suits for method calls.
+ReturnStatementRegEx.java -RegEx that suits for return statements.
+
+sjavaparser package:
+Section.java - This class represent a section in the sjava file.
+SectionArrayFactory.java - a factory that creates sections and section arrays.
+Sjavaparser.java - parses the sjava file into a String array list.
+
+
+=============================
+=          Design           =
+=============================
+The basic Idea: Working with sections.
+The sjava source file is directly processed into a String ArrayList.
+The String ArrayList is processed into sections; each section represents an intention to command something in the code file.
+(Could be a comment line/veriable declaring/method call/method decleration/ if or while, etc. )
+Now for each section we have a classifier that calssifies the section,
+and an analyzer that analyzes the section. 
+
+
+=============================
+=  Implementation details   =
+=============================
+Notice that in order to handle a situation that we have one or more section inside another section,
+each section holds an array of inner sections.
+
+=============================
+=    Answers to questions   =
+=============================
+
+1) 6.1 Error handling: We want to catch all exceptions in sJava file.
+To do so, we divide CodeExceptions into two types: SyntaxExceptions and UsageExceptions.
+
+2) 6.2 Design: as described above. 
+Alternative design - Looking back on the project, We could (and probably should) use predicates to reduce the amount of classes and RegExs.
+We could also make the code more modular, but the whole project was EXTREMLY long and there was not enough time to make the code too pretty.
+
+3) 6.3 description of 2 main RegEx we used:
+    variable declaration regex: separated regex was used for each variable type, with the appropriate value description.
+    method signature regex: we created sperate regex for method name, and parameters, according to ex description.
+    we also separated cases for prefix name of '_'. method parameter type was tested using the '|' symbol to assess
+    different types.
+
+=============================
+=    Resubmission   =
+=============================
+Since we did not pass the last presubmit automatic test, we failed in all automatic tests.
+In order to resubmit without making too many changes, we made the presubmit test pass by adding an if statement:
+The change are made in Sjavac file, line 20.
